@@ -67,25 +67,6 @@ void GameStateMachine::onKeyUp(SDL_Event* e) {
     }
 }
 
-void GameStateMachine::onMouseButtonDown(SDL_Event& e) {
-    if(!gameStates.empty()) {
-        gameStates.back()->onMouseButtonDown(e);
-    }
-}
-
-
-void GameStateMachine::onMouseButtonUp(SDL_Event& e) {
-    if(!gameStates.empty()) {
-        gameStates.back()->onMouseButtonUp(e);
-    }
-}
-
-void GameStateMachine::onMouseMove(SDL_Event& e) {
-    if(!gameStates.empty()) {
-        gameStates.back()->onMouseMove(e);
-    }
-}
-
 
 
 

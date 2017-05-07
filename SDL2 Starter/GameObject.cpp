@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include "GameObject.h"
 #include "Game.h"
-#include "TextureManager.h"
 
 GameObject::GameObject(string TEX_ID, int X, int Y, int W, int H, float SCALE, int NUM_FRAMES) : pos(X,Y), vel(0,0) {
 
@@ -27,7 +26,6 @@ void GameObject::update() {
 }
 
 void GameObject::draw() {
-    _TextureManager::Instance()->drawFrame(textureID, rect.x, rect.y, rect.w, rect.h, scale, curRow, curFrame, rotate, _Game::Instance()->getRenderer());
 }
 
 

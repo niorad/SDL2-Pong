@@ -27,9 +27,6 @@ public:
     virtual bool onExit() = 0;
     virtual void onKeyDown(SDL_Event* e) = 0;
     virtual void onKeyUp(SDL_Event* e) = 0;
-    virtual void onMouseButtonUp(SDL_Event& e) = 0;
-    virtual void onMouseButtonDown(SDL_Event& e) = 0;
-    virtual void onMouseMove(SDL_Event& e) = 0;
     virtual string getStateID() const = 0;
     GameObject* getObjectByID(string id) { return gameObjects[id]; }
 

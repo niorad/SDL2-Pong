@@ -9,7 +9,7 @@ int main(int argc, char **agv) {
     Uint32 frameStart;
     Uint32 frameTime;
     
-    if(_Game::Instance()->init("SDL2-Starter", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN)) {
+    if(_Game::Instance()->init("sdl2-pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN)) {
     
         cout << "Game Init Succeeded" << endl;
         

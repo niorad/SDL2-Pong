@@ -10,8 +10,7 @@
 #include <iostream>
 #include "Game.h"
 #include "GameStateMachine.h"
-#include "TextureManager.h"
-#include "Button.h"
+#include "Paddle.h"
 
 const string PlayState::playID = "PLAY";
 
@@ -25,17 +24,24 @@ void PlayState::update() {
 
 void PlayState::render() {
 
-    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 0, 255, 255, 255);
+    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 133, 135, 128, 255);
+    SDL_RenderClear(_Game::Instance()->getRenderer());
 
     for(it_type iterator = gameObjects.begin(); iterator != gameObjects.end(); iterator++) {
         iterator->second->draw();
     }
-    
+
+    paddle->draw();
+
 }
 
 
 bool PlayState::onEnter() {
+
     cout << "Entering PlayState" << endl;
+
+    paddle = new Paddle("paddle", 20, 20, 15, 80, 1);
+
     return true;
 }
 
@@ -53,21 +59,15 @@ bool PlayState::onExit() {
 }
 
 void PlayState::onKeyDown(SDL_Event* e) {
-
+    const int current_key = e->key.keysym.scancode;
+    if(current_key == 81) {
+        paddle->moveDown();
+    } else if(current_key == 82) {
+        paddle->moveUp();
+    }
 }
 
 void PlayState::onKeyUp(SDL_Event* e) {
 
 }
 
-void PlayState::onMouseButtonDown(SDL_Event& e) {
-
-}
-
-void PlayState::onMouseButtonUp(SDL_Event& e) {
-
-}
-
-void PlayState::onMouseMove(SDL_Event& e) {
-    
-}

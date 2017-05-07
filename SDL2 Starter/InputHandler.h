@@ -14,12 +14,6 @@
 #include <vector>
 #include "Vector2D.h"
 
-enum mouse_buttons {
-    LEFT = 0,
-    MIDDLE = 1,
-    RIGHT = 2
-};
-
 
 class InputHandler {
 
@@ -41,17 +35,6 @@ public:
     
     bool isKeyDown(SDL_Scancode key);
     
-    // Mouse
-    
-    bool getMouseButtonState(int buttonNum) {
-        return mouseButtonStates[buttonNum];
-    }
-    
-    Vector2D* getMousePos() {
-        return mPos;
-    }
-    
-    void reset();
     
 private:
     
@@ -66,16 +49,7 @@ private:
     
     void onKeyDown(SDL_Event* event);
     void onKeyUp(SDL_Event* event);
-    
-    // Mouse
-    
-    std::vector<bool> mouseButtonStates;
-    Vector2D* mPos;
-    
-    void onMouseMove(SDL_Event& e);
-    void onMouseButtonDown(SDL_Event& e);
-    void onMouseButtonUp(SDL_Event& e);
-    
+        
 };
 
 typedef InputHandler _InputHandler;

@@ -7,8 +7,7 @@
 //
 
 #include "Game.h"
-#include "TextureManager.h"
-#include "MenuState.h"
+#include "PlayState.h"
 
 
 Game* Game::instance = 0;
@@ -59,7 +58,7 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     running = true;
 
     gameStateMachine = new GameStateMachine();
-    gameStateMachine->pushState(new MenuState());
+    gameStateMachine->pushState(new PlayState());
     
     
     return true;

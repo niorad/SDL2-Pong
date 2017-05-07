@@ -12,10 +12,6 @@
 InputHandler* InputHandler::instance = 0;
 
 void InputHandler::init() {
-    for(int i = 0; i < 3; i++) {
-        mouseButtonStates.push_back(false);
-    }
-    mPos = new Vector2D(0, 0);
 }
 
 
@@ -35,64 +31,9 @@ void InputHandler::update() {
             case SDL_KEYUP:
                 onKeyUp(&event);
                 break;
-            case SDL_MOUSEMOTION:
-                onMouseMove(event);
-                break;
-            case SDL_MOUSEBUTTONDOWN:
-                onMouseButtonDown(event);
-                break;
-            case SDL_MOUSEBUTTONUP:
-                onMouseButtonUp(event);
-                break;
             default:
                 break;
         }
-    }
-}
-
-
-
-void InputHandler::onMouseButtonDown(SDL_Event& e) {
-    if(e.button.button == SDL_BUTTON_LEFT) {
-        mouseButtonStates[LEFT] = true;
-        cout << "Left Mouse Button Pressed" << endl;
-    } else if(e.button.button == SDL_BUTTON_MIDDLE) {
-        mouseButtonStates[MIDDLE] = true;
-        cout << "Middle Mouse Button Pressed" << endl;
-    } else if(e.button.button == SDL_BUTTON_RIGHT) {
-        mouseButtonStates[RIGHT] = true;
-        cout << "Right Mouse Button Pressed" << endl;
-    }
-    _Game::Instance()->getStateMachine()->onMouseButtonDown(e);
-
-}
-
-void InputHandler::onMouseButtonUp(SDL_Event& e) {
-    if(e.button.button == SDL_BUTTON_LEFT) {
-        mouseButtonStates[LEFT] = false;
-        cout << "Left Mouse Button Released" << endl;
-    } else if(e.button.button == SDL_BUTTON_MIDDLE) {
-        mouseButtonStates[MIDDLE] = false;
-        cout << "Middle Mouse Button Released" << endl;
-    } else if(e.button.button == SDL_BUTTON_RIGHT) {
-        mouseButtonStates[RIGHT] = false;
-        cout << "Right Mouse Button Released" << endl;
-    }
-    _Game::Instance()->getStateMachine()->onMouseButtonUp(e);
-}
-
-
-void InputHandler::onMouseMove(SDL_Event& e) {
-    mPos->setX(e.motion.x);
-    mPos->setY(e.motion.y);
-    cout << "MouseX: " << mPos->getX() << ", MouseY: " << mPos->getY() << endl;
-    _Game::Instance()->getStateMachine()->onMouseMove(e);
-}
-
-
-void InputHandler::reset() {
-    for(int i = 0; i< mouseButtonStates.size(); i++) {
-        mouseButtonStates[i] = false;
     }
 }
 
