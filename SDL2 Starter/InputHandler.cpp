@@ -40,13 +40,13 @@ void InputHandler::update() {
 
 
 void InputHandler::onKeyDown(SDL_Event* event) {
-    cout << "Key pressed: " << SDL_GetKeyName(event->key.keysym.sym) << endl;
+//    cout << "Key pressed: " << SDL_GetKeyName(event->key.keysym.sym) << endl;
     _Game::Instance()->getStateMachine()->onKeyDown(event);
 }
 
 
 void InputHandler::onKeyUp(SDL_Event* event) {
-    cout << "Key Released: " << SDL_GetKeyName(event->key.keysym.sym) << endl;
+//    cout << "Key Released: " << SDL_GetKeyName(event->key.keysym.sym) << endl;
     _Game::Instance()->getStateMachine()->onKeyUp(event);
 }
 

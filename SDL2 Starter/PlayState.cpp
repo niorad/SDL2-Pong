@@ -20,6 +20,7 @@ void PlayState::update() {
         iterator->second->update();
     }
 
+    paddle->update();
 }
 
 void PlayState::render() {
@@ -40,7 +41,7 @@ bool PlayState::onEnter() {
 
     cout << "Entering PlayState" << endl;
 
-    paddle = new Paddle("paddle", 20, 20, 15, 80, 1);
+    paddle = new Paddle("paddle", 20, 180, 15, 80, 1);
 
     return true;
 }
@@ -61,13 +62,18 @@ bool PlayState::onExit() {
 void PlayState::onKeyDown(SDL_Event* e) {
     const int current_key = e->key.keysym.scancode;
     if(current_key == 81) {
-        paddle->moveDown();
+        paddle->startMovingDown();
     } else if(current_key == 82) {
-        paddle->moveUp();
+        paddle->startMovingUp();
     }
 }
 
 void PlayState::onKeyUp(SDL_Event* e) {
-
+    const int current_key = e->key.keysym.scancode;
+    if(current_key == 81) {
+        paddle->stopMovingDown();
+    } else if(current_key == 82) {
+        paddle->stopMovingUp();
+    }
 }
 

@@ -54,13 +54,15 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     }
     
     _InputHandler::Instance()->init();
+
+    dT = 0;
+    lastUpdate = 0;
     
     running = true;
 
     gameStateMachine = new GameStateMachine();
     gameStateMachine->pushState(new PlayState());
-    
-    
+
     return true;
 }
 
@@ -76,6 +78,10 @@ void Game::render() {
 }
 
 void Game::update() {
+
+    Uint32 timeDiff = SDL_GetTicks() - lastUpdate;
+    dT = timeDiff / 1000.0;
+    lastUpdate = SDL_GetTicks();
     gameStateMachine->update();
 }
 

@@ -17,6 +17,8 @@ class Paddle : public GameObject {
 
 private:
     SDL_Rect body;
+    bool isMovingDown;
+    bool isMovingUp;
 public:
 
     Paddle(string TEX_ID, int X, int Y, int W, int H, int SCALE);
@@ -24,8 +26,10 @@ public:
     virtual void update();
     virtual void clean();
 
-    virtual void moveUp();
-    void moveDown();
+    void startMovingUp();
+    void startMovingDown();
+    void stopMovingUp();
+    void stopMovingDown();
 
 };
 

@@ -12,7 +12,7 @@
 #include "Game.h"
 using namespace std;
 
-#define PADDLE_SPEED 10
+#define PADDLE_SPEED 250
 
 
 Paddle::Paddle(string TEX_ID, int X, int Y, int W, int H, int SCALE): GameObject(TEX_ID, X, Y, W, H, SCALE, 3) {
@@ -21,18 +21,45 @@ Paddle::Paddle(string TEX_ID, int X, int Y, int W, int H, int SCALE): GameObject
     body.y = Y;
     body.w = W;
     body.h = H;
+    isMovingUp = false;
+    isMovingDown = false;
 }
 
 void Paddle::update() {
 
+    if(isMovingUp) {
+        body.y -= PADDLE_SPEED * _Game::Instance()->delta();
+    }
+
+    if(isMovingDown) {
+        body.y += PADDLE_SPEED * _Game::Instance()->delta();
+    }
+
+    if(body.y < 0) {
+        body.y = 0;
+    }
+
+    if(body.y > 400) {
+        body.y = 400;
+    }
+
+
 }
 
-void Paddle::moveUp() {
-    body.y -= PADDLE_SPEED;
+void Paddle::startMovingUp() {
+    isMovingUp = true;
 }
 
-void Paddle::moveDown() {
-    body.y += PADDLE_SPEED;
+void Paddle::startMovingDown() {
+    isMovingDown = true;
+}
+
+void Paddle::stopMovingUp() {
+    isMovingUp = false;
+}
+
+void Paddle::stopMovingDown() {
+    isMovingDown = false;
 }
 
 void Paddle::draw() {

@@ -42,7 +42,8 @@ public:
     void render();
     void clean();
     void exit();
-    
+
+
     bool isRunning() {
         return running;
     }
@@ -57,6 +58,7 @@ public:
 
     GameStateMachine* getStateMachine() { return gameStateMachine; }
 
+    float delta() { return dT; }
 
 private:
     
@@ -71,6 +73,8 @@ private:
     GameStateMachine* gameStateMachine;
     
     bool running;
+    float dT;
+    Uint32 lastUpdate;
 
 };
 
