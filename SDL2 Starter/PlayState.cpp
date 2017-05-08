@@ -14,6 +14,16 @@
 
 const string PlayState::playID = "PLAY";
 
+
+bool PlayState::onEnter() {
+    cout << "Entering PlayState" << endl;
+    paddle = new Paddle(220, 180, 15, 80);
+    ball = new Ball(100, 100, 20, 20);
+    collisionIsSharp = true;
+    return true;
+}
+
+
 void PlayState::update() {
 
     paddle->update();
@@ -28,19 +38,27 @@ void PlayState::render() {
 
     collisionDirection ballTouchingPaddle = ball->checkCollisionDirection(paddle);
 
-    switch(ballTouchingPaddle) {
-        case NONE:
-            break;
-        case TOP:
-        case BOTTOM:
-            ball->switchYVel();
-            break;
-        case LEFT:
-        case RIGHT:
-            ball->switchXVel();
-            break;
+    if(!collisionIsSharp && ballTouchingPaddle == NONE) {
+        collisionIsSharp = true;
     }
 
+    if(collisionIsSharp) {
+
+        switch(ballTouchingPaddle) {
+            case NONE:
+                break;
+            case TOP:
+            case BOTTOM:
+                ball->switchYVel();
+                collisionIsSharp = false;
+                break;
+            case LEFT:
+            case RIGHT:
+                ball->switchXVel();
+                collisionIsSharp = false;
+                break;
+        }
+    }
 
     paddle->draw();
     ball->draw();
@@ -48,15 +66,6 @@ void PlayState::render() {
 }
 
 
-bool PlayState::onEnter() {
-
-    cout << "Entering PlayState" << endl;
-
-    paddle = new Paddle(220, 180, 15, 80);
-    ball = new Ball(100, 100, 20, 20);
-
-    return true;
-}
 
 
 bool PlayState::onExit() {

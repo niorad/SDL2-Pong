@@ -23,6 +23,7 @@ public:
 private:
 
     static const string playID;
+    bool collisionIsSharp;
     Paddle* paddle;
     Ball* ball;
 

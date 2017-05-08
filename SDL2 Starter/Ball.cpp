@@ -13,8 +13,8 @@ Ball::Ball(int X, int Y, int W, int H): GameObject(X, Y, W, H) {
     rect.y = Y;
     rect.w = W;
     rect.h = H;
-    vel.setX(3);
-    vel.setY(2);
+    vel.setX(5);
+    vel.setY(4);
 }
 
 
@@ -49,12 +49,10 @@ void Ball::update() {
 
 void Ball::switchYVel() {
     vel.setY(-vel.getY());
-    pos += vel;
 }
 
 void Ball::switchXVel() {
     vel.setX(-vel.getX());
-    pos += vel;
 }
 
 void Ball::draw() {
