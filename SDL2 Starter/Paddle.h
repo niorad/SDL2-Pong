@@ -1,13 +1,5 @@
-//
-//  Paddle.hpp
-//  SDL2 Pong
-//
-//  Created by Antonio Radovcic on 07.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
-#ifndef Paddle_hpp
-#define Paddle_hpp
+#ifndef Paddle_h
+#define Paddle_h
 
 #include <stdio.h>
 #include <string>
@@ -16,12 +8,16 @@
 class Paddle : public GameObject {
 
 private:
-    SDL_Rect body;
     bool isMovingDown;
     bool isMovingUp;
+    float targetSpeed;
+    float currentSpeed;
+    float speed;
+    float acceleration;
+
 public:
 
-    Paddle(string TEX_ID, int X, int Y, int W, int H, int SCALE);
+    Paddle(int X, int Y, int W, int H);
     virtual void draw();
     virtual void update();
     virtual void clean();

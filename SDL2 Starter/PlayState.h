@@ -1,18 +1,11 @@
-//
-//  PlayState.hpp
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 06.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
-#ifndef PlayState_hpp
-#define PlayState_hpp
+#ifndef PlayState_h
+#define PlayState_h
 #pragma once
 
 #include <stdio.h>
 #include "GameState.h"
 #include "Paddle.h"
+#include "Ball.h"
 #include <string>
 
 
@@ -31,8 +24,9 @@ private:
 
     static const string playID;
     Paddle* paddle;
+    Ball* ball;
 
 };
 
 
-#endif /* PlayState_hpp */
+#endif

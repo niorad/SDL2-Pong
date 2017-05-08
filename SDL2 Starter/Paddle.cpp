@@ -12,38 +12,53 @@
 #include "Game.h"
 using namespace std;
 
-#define PADDLE_SPEED 250
 
 
-Paddle::Paddle(string TEX_ID, int X, int Y, int W, int H, int SCALE): GameObject(TEX_ID, X, Y, W, H, SCALE, 3) {
+Paddle::Paddle(int X, int Y, int W, int H): GameObject(X, Y, W, H) {
+
     cout << "Yay Paddle is here" << endl;
-    body.x = X;
-    body.y = Y;
-    body.w = W;
-    body.h = H;
+
+    pos.setX(X);
+    pos.setY(Y);
+    rect.x = X;
+    rect.y = Y;
+    rect.w = W;
+    rect.h = H;
     isMovingUp = false;
     isMovingDown = false;
+    currentSpeed = 0;
+    speed = 300;
+    acceleration = 40;
 }
 
 void Paddle::update() {
 
-    if(isMovingUp) {
-        body.y -= PADDLE_SPEED * _Game::Instance()->delta();
-    }
-
     if(isMovingDown) {
-        body.y += PADDLE_SPEED * _Game::Instance()->delta();
+        currentSpeed += acceleration;
+        if(currentSpeed > speed) {
+            currentSpeed = speed;
+        }
+    } else if(isMovingUp) {
+        currentSpeed -= acceleration;
+        if(currentSpeed < -(speed)) {
+            currentSpeed = -(speed);
+        }
+    } else {
+        currentSpeed = 0;
     }
 
-    if(body.y < 0) {
-        body.y = 0;
+    pos.setY(pos.getY() + currentSpeed * _Game::Instance()->delta());
+
+    if(pos.getY() < 0) {
+        pos.setY(0);
     }
 
-    if(body.y > 400) {
-        body.y = 400;
+    if(pos.getY() > 400) {
+        pos.setY(400);
     }
 
-
+    rect.x = pos.getX();
+    rect.y = pos.getY();
 }
 
 void Paddle::startMovingUp() {
@@ -64,8 +79,7 @@ void Paddle::stopMovingDown() {
 
 void Paddle::draw() {
     SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 255, 240, 242, 255);
-    SDL_RenderFillRect(_Game::Instance()->getRenderer(), &body);
-    
+    SDL_RenderFillRect(_Game::Instance()->getRenderer(), &rect);
 }
 
 void Paddle::clean() {

@@ -16,27 +16,28 @@
 
 using namespace std;
 
+enum collisionDirection {NONE, TOP, RIGHT, BOTTOM, LEFT};
+
 class GameObject {
 
 public:
-    GameObject(string TEX_ID, int X, int Y, int W, int H, float SCALE, int NUM_FRAMES);
+    GameObject(int X, int Y, int W, int H);
     virtual void draw();
     virtual void update();
     virtual void clean();
     float getW() { return rect.w; }
     float getH() { return rect.h; }
+    SDL_Rect* getRect() { return &rect; }
     Vector2D& getPos() { return pos; }
-    string getTextureID() { return textureID; }
     virtual bool checkCollision(Vector2D* vec);
+    virtual bool checkOverlap(GameObject* gameObject);
+    virtual collisionDirection checkCollisionDirection(GameObject* gameObject);
 
 protected:
     virtual ~GameObject() {}
     SDL_Rect rect;
     Vector2D pos, vel;
-    float scale = 1;
-    int curRow = 0, curFrame = 0, numFrames = 1;
     double rotate = 0.0;
-    string textureID;
 };
 
 

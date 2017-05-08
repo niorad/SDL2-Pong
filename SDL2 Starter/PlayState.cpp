@@ -10,29 +10,40 @@
 #include <iostream>
 #include "Game.h"
 #include "GameStateMachine.h"
-#include "Paddle.h"
+
 
 const string PlayState::playID = "PLAY";
 
 void PlayState::update() {
 
-    for(it_type iterator = gameObjects.begin(); iterator != gameObjects.end(); iterator++) {
-        iterator->second->update();
-    }
-
     paddle->update();
+    ball->update();
 }
+
 
 void PlayState::render() {
 
     SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 133, 135, 128, 255);
     SDL_RenderClear(_Game::Instance()->getRenderer());
 
-    for(it_type iterator = gameObjects.begin(); iterator != gameObjects.end(); iterator++) {
-        iterator->second->draw();
+    collisionDirection ballTouchingPaddle = ball->checkCollisionDirection(paddle);
+
+    switch(ballTouchingPaddle) {
+        case NONE:
+            break;
+        case TOP:
+        case BOTTOM:
+            ball->switchYVel();
+            break;
+        case LEFT:
+        case RIGHT:
+            ball->switchXVel();
+            break;
     }
 
+
     paddle->draw();
+    ball->draw();
 
 }
 
@@ -41,7 +52,8 @@ bool PlayState::onEnter() {
 
     cout << "Entering PlayState" << endl;
 
-    paddle = new Paddle("paddle", 20, 180, 15, 80, 1);
+    paddle = new Paddle(220, 180, 15, 80);
+    ball = new Ball(100, 100, 20, 20);
 
     return true;
 }
@@ -49,11 +61,8 @@ bool PlayState::onEnter() {
 
 bool PlayState::onExit() {
 
-    for(it_type iterator = gameObjects.begin(); iterator != gameObjects.end(); iterator++) {
-        iterator->second->clean();
-    }
-
-    gameObjects.clear();
+    paddle->clean();
+    ball->clean();
 
     cout << "Exiting PlayState" << endl;
     return false;
