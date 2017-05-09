@@ -27,8 +27,11 @@ public:
     virtual void clean();
     float getW() { return rect.w; }
     float getH() { return rect.h; }
+    float getCenterX();
+    float getCenterY();
     SDL_Rect* getRect() { return &rect; }
     Vector2D& getPos() { return pos; }
+    Vector2D& getVel() { return vel; }
     virtual bool checkCollision(Vector2D* vec);
     virtual bool checkOverlap(GameObject* gameObject);
     virtual collisionDirection checkCollisionDirection(GameObject* gameObject);

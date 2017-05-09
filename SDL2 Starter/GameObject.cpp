@@ -80,9 +80,15 @@ collisionDirection GameObject::checkCollisionDirection(GameObject* gameObject) {
     } else {
         return NONE;
     }
-
 }
 
+float GameObject::getCenterX() {
+    return pos.getX() + (rect.w / 2);
+}
+
+float GameObject::getCenterY() {
+    return pos.getY() + (rect.h / 2);
+}
 
 
 void GameObject::clean() {}

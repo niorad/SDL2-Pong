@@ -1,6 +1,6 @@
 
-#ifndef Ball_h
-#define Ball_h
+#ifndef Results_hpp
+#define Results_hpp
 
 #include <stdio.h>
 #include "Game.h"
@@ -8,17 +8,20 @@
 #include "Vector2D.h"
 #include <SDL2/SDL.h>
 
-class Ball : public GameObject {
+class Results : public GameObject {
 
 public:
-    Ball(int X, int Y, int W, int H);
+    Results();
     virtual void draw();
     virtual void update();
     virtual void clean();
 
-    void switchYVel();
-    void switchXVel();
-    void receiveImpulse(Vector2D impulse);
+private:
+    TTF_Font* uni;
+    SDL_Rect srcRect;
+    SDL_Texture* textTexture;
 };
 
 #endif
+
+

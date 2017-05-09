@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "Paddle.h"
 #include "Ball.h"
+#include "Results.h"
 #include <string>
 
 
@@ -24,8 +25,10 @@ private:
 
     static const string playID;
     bool collisionIsSharp;
+    void handleBallCollision();
     Paddle* paddle;
     Ball* ball;
+    Results* results;
 
 };
 
