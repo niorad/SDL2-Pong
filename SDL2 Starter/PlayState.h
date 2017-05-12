@@ -25,8 +25,9 @@ private:
 
     static const string playID;
     bool collisionIsSharp;
-    void handleBallCollision();
-    Paddle* paddle;
+    void handleBallCollision(GameObject * paddle);
+    Paddle* player;
+    Paddle* enemy;
     Ball* ball;
     Results* results;
 

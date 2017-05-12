@@ -12,7 +12,7 @@ Ball::Ball(int X, int Y, int W, int H): GameObject(X, Y, W, H) {
     rect.y = Y;
     rect.w = W;
     rect.h = H;
-    vel.setX(4);
+    vel.setX(5);
     vel.setY(3.3);
 }
 
@@ -22,13 +22,13 @@ void Ball::update() {
     pos.setX(pos.getX() + vel.getX());
     pos.setY(pos.getY() + vel.getY());
 
-    if(pos.getX() > 630) {
-        pos.setX(629);
+    if(pos.getX() > _Game::Instance()->getGameWidth() - rect.w) {
+        pos.setX(_Game::Instance()->getGameWidth() - rect.w - 1);
         vel.setX(-vel.getX());
     }
 
-    if(pos.getY() > 470) {
-        pos.setY(469);
+    if(pos.getY() > _Game::Instance()->getGameHeight() - rect.h) {
+        pos.setY(_Game::Instance()->getGameHeight() - rect.h - 1);
         vel.setY(-vel.getY());
     }
 
@@ -54,8 +54,9 @@ void Ball::switchXVel() {
     vel.setX(-vel.getX());
 }
 
-void Ball::receiveImpulse(Vector2D impulse) {
-    vel = impulse;
+void Ball::receiveImpulse(float x, float y) {
+    vel.setX(x);
+    vel.setY(y);
 }
 
 void Ball::draw() {

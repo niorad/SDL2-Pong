@@ -1,6 +1,5 @@
 #include "Game.h"
 
-
 const int FPS = 60;
 const float DELAY_TIME = 1000.0f / FPS;
 
@@ -9,7 +8,7 @@ int main(int argc, char **agv) {
     Uint32 frameStart;
     Uint32 frameTime;
     
-    if(_Game::Instance()->init("sdl2-pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN)) {
+    if(_Game::Instance()->init("sdl2-pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 500, 500, SDL_WINDOW_SHOWN)) {
     
         cout << "Game Init Succeeded" << endl;
         

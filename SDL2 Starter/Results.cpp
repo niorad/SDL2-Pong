@@ -1,8 +1,8 @@
 #include "Results.h"
 //http://www.sdltutorials.com/sdl-ttf
 Results::Results() : GameObject(0, 0, 0, 0) {
-    uni = TTF_OpenFont("assets/uni.ttf", 30);
-    SDL_Surface* number = TTF_RenderText_Solid(uni, "Welcome to Tijuana", {255, 255, 255, 255});
+    uni = TTF_OpenFont("assets/uni.ttf", 16);
+    SDL_Surface* number = TTF_RenderText_Solid(uni, "Pongy McPongface", {255, 255, 255, 255});
     textTexture = SDL_CreateTextureFromSurface(_Game::Instance()->getRenderer(), number);
     SDL_QueryTexture(textTexture, NULL, NULL, &srcRect.w, &srcRect.h);
     srcRect.x = 20;

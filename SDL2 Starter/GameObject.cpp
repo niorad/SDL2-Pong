@@ -1,11 +1,3 @@
-//
-//  GameObject.cpp
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 05.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
 #include <stdio.h>
 #include "GameObject.h"
 #include "Game.h"

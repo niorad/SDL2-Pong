@@ -18,7 +18,7 @@ public:
 
     void switchYVel();
     void switchXVel();
-    void receiveImpulse(Vector2D impulse);
+    void receiveImpulse(float x, float y);
 };
 
 #endif

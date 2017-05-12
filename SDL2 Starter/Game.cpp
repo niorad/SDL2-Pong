@@ -1,11 +1,3 @@
-//
-//  Game.cpp
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 03.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
 #include "Game.h"
 #include "PlayState.h"
 
@@ -13,6 +5,9 @@
 Game* Game::instance = 0;
 
 bool Game::init(const char* title, int x, int y, int width, int height, int flags) {
+
+    gameWidth = width;
+    gameHeight = height;
     
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         cout << "Error initializing SDL" << endl;

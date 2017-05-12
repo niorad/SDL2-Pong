@@ -1,11 +1,3 @@
-//
-//  Paddle.cpp
-//  SDL2 Pong
-//
-//  Created by Antonio Radovcic on 07.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
 #include "Paddle.h"
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -53,8 +45,8 @@ void Paddle::update() {
         pos.setY(0);
     }
 
-    if(pos.getY() > 400) {
-        pos.setY(400);
+    if(pos.getY() > _Game::Instance()->getGameHeight() - rect.h) {
+        pos.setY(_Game::Instance()->getGameHeight() - rect.h);
     }
 
     rect.x = pos.getX();
@@ -75,6 +67,10 @@ void Paddle::stopMovingUp() {
 
 void Paddle::stopMovingDown() {
     isMovingDown = false;
+}
+
+void Paddle::setCenterY(float y) {
+    pos.setY(y - (rect.h/2));
 }
 
 void Paddle::draw() {

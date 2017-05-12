@@ -26,9 +26,7 @@ public:
     void startMovingDown();
     void stopMovingUp();
     void stopMovingDown();
+    void setCenterY(float y);
 
 };
-
-
-
-#endif /* Paddle_hpp */
+#endif

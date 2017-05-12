@@ -1,11 +1,3 @@
-//
-//  Vector2D.h
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 03.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
 #ifndef Vector2D_h
 #define Vector2D_h
 

@@ -1,10 +1,3 @@
-//
-//  Game.h
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 03.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
 
 #ifndef Game_h
 #define Game_h
@@ -59,6 +52,9 @@ public:
     GameStateMachine* getStateMachine() { return gameStateMachine; }
 
     float delta() { return dT; }
+    int getGameWidth() { return gameWidth; }
+    int getGameHeight() { return gameHeight; }
+
 
 private:
     
@@ -75,9 +71,11 @@ private:
     bool running;
     float dT;
     Uint32 lastUpdate;
+    int gameWidth;
+    int gameHeight;
 
 };
 
 typedef Game _Game;
 
-#endif /* Game_h */
+#endif

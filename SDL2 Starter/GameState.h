@@ -1,11 +1,3 @@
-//
-//  GameState.hpp
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 04.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
 #ifndef GameState_h
 #define GameState_h
 #pragma once

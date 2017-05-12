@@ -1,11 +1,3 @@
-//
-//  GameObject.h
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 05.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
 #ifndef GameObject_h
 #define GameObject_h
 #pragma once
@@ -43,7 +35,4 @@ protected:
     double rotate = 0.0;
 };
 
-
-
-
-#endif /* GameObject_h */
+#endif

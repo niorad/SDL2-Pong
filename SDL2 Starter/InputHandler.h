@@ -1,11 +1,3 @@
-//
-//  InputHandler.hpp
-//  SDL2 Starter
-//
-//  Created by Antonio Radovcic on 03.05.17.
-//  Copyright © 2017 niorad. All rights reserved.
-//
-
 #ifndef InputHandler_hpp
 #define InputHandler_hpp
 #pragma once
@@ -54,4 +46,4 @@ private:
 
 typedef InputHandler _InputHandler;
 
-#endif /* InputHandler_hpp */
+#endif 
