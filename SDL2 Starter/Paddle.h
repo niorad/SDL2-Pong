@@ -14,10 +14,11 @@ private:
     float currentSpeed;
     float speed;
     float acceleration;
+    bool isBlue;
 
 public:
 
-    Paddle(int X, int Y, int W, int H);
+    Paddle(int X, int Y, int W, int H, bool isPlayer);
     virtual void draw();
     virtual void update();
     virtual void clean();

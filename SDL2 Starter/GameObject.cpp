@@ -46,10 +46,12 @@ bool GameObject::checkOverlap(GameObject* gameObject) {
 
 collisionDirection GameObject::checkCollisionDirection(GameObject* gameObject) {
 
+    // https://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
+
     float w = 0.5 * (getW() + gameObject->getW());
     float h = 0.5 * (getH() + gameObject->getH());
-    float dx = (pos.getX() + getW() / 2) - (gameObject->getPos().getX() + gameObject->getW() / 2);
-    float dy = (pos.getY() + getH() / 2) - (gameObject->getPos().getY() + gameObject->getH() / 2);
+    float dx = (pos.getX() + (getW() / 2)) - (gameObject->getPos().getX() + (gameObject->getW() / 2));
+    float dy = (pos.getY() + (getH() / 2)) - (gameObject->getPos().getY() + (gameObject->getH() / 2));
 
     if(fabs(dx) <= w && fabs(dy) <= h) {
 

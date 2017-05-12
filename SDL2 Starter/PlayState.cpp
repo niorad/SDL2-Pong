@@ -9,17 +9,18 @@ const string PlayState::playID = "PLAY";
 
 bool PlayState::onEnter() {
     cout << "Entering PlayState" << endl;
-    player = new Paddle(50, 180, 15, 80);
-    enemy = new Paddle(_Game::Instance()->getGameWidth() - 65, 180, 15, 80);
-    ball = new Ball(100, 300, 10, 10);
+    player = new Paddle(50, 180, 15, 80, true);
+    enemy = new Paddle(_Game::Instance()->getGameWidth() - 65, 180, 15, 80, false);
+    ball = new Ball(100, 300, 20, 20);
     results = new Results();
+    fieldMiddleLine = {_Game::Instance()->getGameWidth() / 2, 0, 1, _Game::Instance()->getGameHeight()};
+    fieldMiddlePoint = {_Game::Instance()->getGameWidth() / 2 - 5, _Game::Instance()->getGameHeight() / 2 - 5, 11, 11};
     collisionIsSharp = true;
     return true;
 }
 
 
 void PlayState::update() {
-
     player->update();
     enemy->update();
     enemy->setCenterY(ball->getCenterY());
@@ -41,14 +42,16 @@ void PlayState::render() {
     if(ballTouchingPlayer != NONE) {
         objectTouchingBall = player;
         ballTouchingDirection = ballTouchingPlayer;
+        results->updateText("Player has touched ball");
     } else if(ballTouchingEnemy != NONE) {
         objectTouchingBall = enemy;
         ballTouchingDirection = ballTouchingEnemy;
+        results->updateText("Enemy has touched ball");
     } else {
         objectTouchingBall = nullptr;
     }
 
-    if(!collisionIsSharp && ballTouchingDirection == NONE) {
+    if(!collisionIsSharp && !ball->checkOverlap(player) && !ball->checkOverlap(enemy)) {
         collisionIsSharp = true;
     }
 
@@ -69,6 +72,7 @@ void PlayState::render() {
                 break;
         }
     }
+    drawField();
     player->draw();
     enemy->draw();
     ball->draw();
@@ -95,6 +99,15 @@ void PlayState::handleBallCollision(GameObject * paddle) {
     if(dir == 1) {
         ball->switchXVel();
     }
+}
+
+
+void PlayState::drawField() {
+
+    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 100, 100, 100, 255);
+    SDL_RenderFillRect(_Game::Instance()->getRenderer(), &fieldMiddleLine);
+    SDL_RenderFillRect(_Game::Instance()->getRenderer(), &fieldMiddlePoint);
+
 }
 
 

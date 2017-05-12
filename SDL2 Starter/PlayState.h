@@ -26,10 +26,13 @@ private:
     static const string playID;
     bool collisionIsSharp;
     void handleBallCollision(GameObject * paddle);
+    void drawField();
     Paddle* player;
     Paddle* enemy;
     Ball* ball;
     Results* results;
+    SDL_Rect fieldMiddleLine;
+    SDL_Rect fieldMiddlePoint;
 
 };
 

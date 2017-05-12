@@ -12,8 +12,8 @@ Ball::Ball(int X, int Y, int W, int H): GameObject(X, Y, W, H) {
     rect.y = Y;
     rect.w = W;
     rect.h = H;
-    vel.setX(5);
-    vel.setY(3.3);
+    vel.setX(8);
+    vel.setY(3);
 }
 
 

@@ -15,6 +15,7 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
+    void updateText(string newText);
 
 private:
     TTF_Font* uni;

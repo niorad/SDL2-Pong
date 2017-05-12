@@ -2,12 +2,7 @@
 //http://www.sdltutorials.com/sdl-ttf
 Results::Results() : GameObject(0, 0, 0, 0) {
     uni = TTF_OpenFont("assets/uni.ttf", 16);
-    SDL_Surface* number = TTF_RenderText_Solid(uni, "Pongy McPongface", {255, 255, 255, 255});
-    textTexture = SDL_CreateTextureFromSurface(_Game::Instance()->getRenderer(), number);
-    SDL_QueryTexture(textTexture, NULL, NULL, &srcRect.w, &srcRect.h);
-    srcRect.x = 20;
-    srcRect.y = 0;
-    SDL_FreeSurface(number);
+    updateText("Pongy Pongface");
 }
 
 void Results::draw() {
@@ -15,6 +10,15 @@ void Results::draw() {
 }
 
 void Results::update() {
+}
+
+void Results::updateText(string newText) {
+    SDL_Surface* number = TTF_RenderText_Solid(uni, newText.c_str(), {255, 255, 255, 255});
+    textTexture = SDL_CreateTextureFromSurface(_Game::Instance()->getRenderer(), number);
+    SDL_QueryTexture(textTexture, NULL, NULL, &srcRect.w, &srcRect.h);
+    srcRect.x = 20;
+    srcRect.y = 0;
+    SDL_FreeSurface(number);
 }
 
 void Results::clean() {

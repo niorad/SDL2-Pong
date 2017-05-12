@@ -6,7 +6,7 @@ using namespace std;
 
 
 
-Paddle::Paddle(int X, int Y, int W, int H): GameObject(X, Y, W, H) {
+Paddle::Paddle(int X, int Y, int W, int H, bool isPlayer): GameObject(X, Y, W, H) {
 
     cout << "Yay Paddle is here" << endl;
 
@@ -21,6 +21,7 @@ Paddle::Paddle(int X, int Y, int W, int H): GameObject(X, Y, W, H) {
     currentSpeed = 0;
     speed = 300;
     acceleration = 40;
+    isBlue = isPlayer;
 }
 
 void Paddle::update() {
@@ -74,7 +75,7 @@ void Paddle::setCenterY(float y) {
 }
 
 void Paddle::draw() {
-    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 255, 240, 242, 255);
+    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), isBlue ? 0 : 155, 0, isBlue ? 155 : 0, 255);
     SDL_RenderFillRect(_Game::Instance()->getRenderer(), &rect);
 }
 
