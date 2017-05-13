@@ -6,14 +6,19 @@ using namespace std;
 
 Ball::Ball(int X, int Y, int W, int H): GameObject(X, Y, W, H) {
     cout << "The ball is here" << endl;
+    r = 255;
+    g = 255;
+    b = 255;
     pos.setX(X);
     pos.setY(Y);
     rect.x = X;
     rect.y = Y;
     rect.w = W;
     rect.h = H;
-    vel.setX(8);
-    vel.setY(3);
+    vel.setX(3);
+    vel.setY(2);
+    isOutOfFieldLeft = false;
+    isOutOfFieldRight = false;
 }
 
 
@@ -23,8 +28,7 @@ void Ball::update() {
     pos.setY(pos.getY() + vel.getY());
 
     if(pos.getX() > _Game::Instance()->getGameWidth() - rect.w) {
-        pos.setX(_Game::Instance()->getGameWidth() - rect.w - 1);
-        vel.setX(-vel.getX());
+        isOutOfFieldRight = true;
     }
 
     if(pos.getY() > _Game::Instance()->getGameHeight() - rect.h) {
@@ -33,8 +37,7 @@ void Ball::update() {
     }
 
     if(pos.getX() < 0) {
-        pos.setX(0);
-        vel.setX(-vel.getX());
+        isOutOfFieldLeft = true;
     }
 
     if(pos.getY() < 0) {
@@ -44,6 +47,12 @@ void Ball::update() {
 
     rect.x = pos.getX();
     rect.y = pos.getY();
+}
+
+void Ball::setColor(int _r, int _g, int _b) {
+    r = _r;
+    g = _g;
+    b = _b;
 }
 
 void Ball::switchYVel() {
@@ -59,8 +68,12 @@ void Ball::receiveImpulse(float x, float y) {
     vel.setY(y);
 }
 
+void Ball::changeSpeed(float delta) {
+    vel = vel * delta;
+}
+
 void Ball::draw() {
-    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), r, g, b, 255);
     SDL_RenderFillRect(_Game::Instance()->getRenderer(), &rect);
 }
 

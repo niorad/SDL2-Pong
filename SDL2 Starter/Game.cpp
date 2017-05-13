@@ -42,11 +42,13 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
         return false;
     }
     
-    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4092) == -1) {
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
         SDL_Quit();
         cout << "SDL_mixer initialization failed" << endl;
         return false;
     }
+
+    
     
     _InputHandler::Instance()->init();
 

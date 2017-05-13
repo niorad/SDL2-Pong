@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Game.h"
 #include "GameStateMachine.h"
+#include <sstream>
+#include <string>
 
 
 const string PlayState::playID = "PLAY";
@@ -11,11 +13,23 @@ bool PlayState::onEnter() {
     cout << "Entering PlayState" << endl;
     player = new Paddle(50, 180, 15, 80, true);
     enemy = new Paddle(_Game::Instance()->getGameWidth() - 65, 180, 15, 80, false);
-    ball = new Ball(100, 300, 20, 20);
+    setNewBall();
     results = new Results();
     fieldMiddleLine = {_Game::Instance()->getGameWidth() / 2, 0, 1, _Game::Instance()->getGameHeight()};
     fieldMiddlePoint = {_Game::Instance()->getGameWidth() / 2 - 5, _Game::Instance()->getGameHeight() / 2 - 5, 11, 11};
     collisionIsSharp = true;
+    scorePlayer = 0;
+    scoreEnemy = 0;
+    updateResults();
+
+    //loading sound
+    blip = NULL;
+    blip = Mix_LoadWAV("assets/blip.wav");
+    if(blip == NULL) {
+        cout << "There was a probläm loading blip.wav" << endl;
+        return false;
+    }
+
     return true;
 }
 
@@ -25,13 +39,16 @@ void PlayState::update() {
     enemy->update();
     enemy->setCenterY(ball->getCenterY());
     ball->update();
-}
 
-
-void PlayState::render() {
-
-    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 133, 135, 128, 255);
-    SDL_RenderClear(_Game::Instance()->getRenderer());
+    if(ball->isOutOfFieldLeft) {
+        scoreEnemy++;
+        updateResults();
+        setNewBall();
+    } else if(ball->isOutOfFieldRight) {
+        scorePlayer++;
+        updateResults();
+        setNewBall();
+    }
 
     collisionDirection ballTouchingPlayer = ball->checkCollisionDirection(player);
     collisionDirection ballTouchingEnemy = ball->checkCollisionDirection(enemy);
@@ -40,23 +57,25 @@ void PlayState::render() {
     GameObject* objectTouchingBall;
 
     if(ballTouchingPlayer != NONE) {
+        Mix_PlayChannel(-1, blip, 0);
         objectTouchingBall = player;
         ballTouchingDirection = ballTouchingPlayer;
-        results->updateText("Player has touched ball");
+        ball->setColor(150, 150, 255);
+        ball->changeSpeed(1.05);
     } else if(ballTouchingEnemy != NONE) {
+        Mix_PlayChannel(-1, blip, 0);
         objectTouchingBall = enemy;
         ballTouchingDirection = ballTouchingEnemy;
-        results->updateText("Enemy has touched ball");
+        ball->setColor(255, 100, 100);
     } else {
         objectTouchingBall = nullptr;
     }
 
-    if(!collisionIsSharp && !ball->checkOverlap(player) && !ball->checkOverlap(enemy)) {
+    if(!collisionIsSharp && ballTouchingPlayer == NONE && ballTouchingEnemy == NONE) {
         collisionIsSharp = true;
     }
 
     if(collisionIsSharp) {
-
         switch(ballTouchingDirection) {
             case NONE:
                 break;
@@ -72,6 +91,14 @@ void PlayState::render() {
                 break;
         }
     }
+}
+
+
+void PlayState::render() {
+
+    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 133, 135, 128, 255);
+    SDL_RenderClear(_Game::Instance()->getRenderer());
+
     drawField();
     player->draw();
     enemy->draw();
@@ -103,21 +130,28 @@ void PlayState::handleBallCollision(GameObject * paddle) {
 
 
 void PlayState::drawField() {
-
     SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 100, 100, 100, 255);
     SDL_RenderFillRect(_Game::Instance()->getRenderer(), &fieldMiddleLine);
-    SDL_RenderFillRect(_Game::Instance()->getRenderer(), &fieldMiddlePoint);
+}
 
+void PlayState::setNewBall() {
+    if(ball) ball->clean();
+    ball = new Ball(_Game::Instance()->getGameWidth() / 2 - 10, _Game::Instance()->getGameHeight() / 2 - 10, 20, 20);
+}
+
+void PlayState::updateResults() {
+    stringstream resultString;
+    resultString << scorePlayer << "  " << scoreEnemy;
+    results->updateText(resultString.str());
 }
 
 
 bool PlayState::onExit() {
-
     player->clean();
     enemy->clean();
     ball->clean();
     results->clean();
-
+    Mix_FreeChunk(blip);
     cout << "Exiting PlayState" << endl;
     return false;
 }

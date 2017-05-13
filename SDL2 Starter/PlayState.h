@@ -27,12 +27,17 @@ private:
     bool collisionIsSharp;
     void handleBallCollision(GameObject * paddle);
     void drawField();
+    void updateResults();
+    void setNewBall();
     Paddle* player;
     Paddle* enemy;
     Ball* ball;
     Results* results;
     SDL_Rect fieldMiddleLine;
     SDL_Rect fieldMiddlePoint;
+    int scorePlayer;
+    int scoreEnemy;
+    Mix_Chunk* blip;
 
 };
 
