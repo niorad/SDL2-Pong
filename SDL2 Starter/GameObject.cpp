@@ -42,6 +42,21 @@ bool GameObject::checkOverlap(GameObject* gameObject) {
     return (aLeft < bRight && aRight > bLeft && aTop < bBottom && aBottom > bTop);
 }
 
+void GameObject::placeAfter(GameObject* gameObject) {
+    pos.setX(gameObject->getPos().getX() + gameObject->getW() + 1);
+}
+
+void GameObject::placeBefore(GameObject* gameObject) {
+    pos.setX(gameObject->getPos().getX() - getW() - 1);
+}
+
+void GameObject::placeAbove(GameObject* gameObject) {
+    pos.setY(gameObject->getPos().getY() - getH() - 1);
+}
+
+void GameObject::placeBelow(GameObject* gameObject) {
+    pos.setY(gameObject->getPos().getY() + gameObject->getW() + 1);
+}
 
 
 collisionDirection GameObject::checkCollisionDirection(GameObject* gameObject) {
@@ -85,4 +100,5 @@ float GameObject::getCenterY() {
 }
 
 
-void GameObject::clean() {}
+void GameObject::clean() {    
+}

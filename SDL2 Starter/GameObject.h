@@ -24,6 +24,10 @@ public:
     SDL_Rect* getRect() { return &rect; }
     Vector2D& getPos() { return pos; }
     Vector2D& getVel() { return vel; }
+    void placeAfter(GameObject* gameObject);
+    void placeBefore(GameObject* gameObject);
+    void placeAbove(GameObject* gameObject);
+    void placeBelow(GameObject* gameObject);
     virtual bool checkCollision(Vector2D* vec);
     virtual bool checkOverlap(GameObject* gameObject);
     virtual collisionDirection checkCollisionDirection(GameObject* gameObject);

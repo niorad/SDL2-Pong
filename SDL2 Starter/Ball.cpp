@@ -49,6 +49,15 @@ void Ball::update() {
     rect.y = pos.getY();
 }
 
+void Ball::reset(int x, int y) {
+    pos.setX(x);
+    pos.setY(y);
+    vel.setX(3);
+    vel.setY(2);
+    isOutOfFieldLeft = false;
+    isOutOfFieldRight = false;
+}
+
 void Ball::setColor(int _r, int _g, int _b) {
     r = _r;
     g = _g;

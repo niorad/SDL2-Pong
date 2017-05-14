@@ -7,6 +7,7 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include "Results.h"
+#include "Item.h"
 #include <string>
 
 
@@ -28,16 +29,19 @@ private:
     void handleBallCollision(GameObject * paddle);
     void drawField();
     void updateResults();
-    void setNewBall();
+    void resetBall();
     Paddle* player;
     Paddle* enemy;
     Ball* ball;
     Results* results;
+    const int ITEM_COUNT = 5;
+    Item* items [5];
     SDL_Rect fieldMiddleLine;
     SDL_Rect fieldMiddlePoint;
     int scorePlayer;
     int scoreEnemy;
     Mix_Chunk* blip;
+    int totalCollisions;
 
 };
 

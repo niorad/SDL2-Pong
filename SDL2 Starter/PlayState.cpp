@@ -13,14 +13,20 @@ bool PlayState::onEnter() {
     cout << "Entering PlayState" << endl;
     player = new Paddle(50, 180, 15, 80, true);
     enemy = new Paddle(_Game::Instance()->getGameWidth() - 65, 180, 15, 80, false);
-    setNewBall();
+    ball = new Ball(_Game::Instance()->getGameWidth() / 2 - 10, _Game::Instance()->getGameHeight() / 2 - 10, 20, 20);
     results = new Results();
     fieldMiddleLine = {_Game::Instance()->getGameWidth() / 2, 0, 1, _Game::Instance()->getGameHeight()};
     fieldMiddlePoint = {_Game::Instance()->getGameWidth() / 2 - 5, _Game::Instance()->getGameHeight() / 2 - 5, 11, 11};
     collisionIsSharp = true;
     scorePlayer = 0;
     scoreEnemy = 0;
+    totalCollisions = 0;
     updateResults();
+
+    //initing items
+    for(int i = 0; i < ITEM_COUNT; i++) {
+        items[i] = new Item(10 + (i * 50), 200, accelerate);
+    }
 
     //loading sound
     blip = NULL;
@@ -40,14 +46,18 @@ void PlayState::update() {
     enemy->setCenterY(ball->getCenterY());
     ball->update();
 
+    for(int i = 0; i < ITEM_COUNT; i++) {
+        items[i]->update();
+    }
+
     if(ball->isOutOfFieldLeft) {
         scoreEnemy++;
         updateResults();
-        setNewBall();
+        resetBall();
     } else if(ball->isOutOfFieldRight) {
         scorePlayer++;
         updateResults();
-        setNewBall();
+        resetBall();
     }
 
     collisionDirection ballTouchingPlayer = ball->checkCollisionDirection(player);
@@ -62,11 +72,15 @@ void PlayState::update() {
         ballTouchingDirection = ballTouchingPlayer;
         ball->setColor(150, 150, 255);
         ball->changeSpeed(1.05);
+        totalCollisions++;
+        cout << "Total collisions: " << totalCollisions << endl;
     } else if(ballTouchingEnemy != NONE) {
         Mix_PlayChannel(-1, blip, 0);
         objectTouchingBall = enemy;
         ballTouchingDirection = ballTouchingEnemy;
         ball->setColor(255, 100, 100);
+        totalCollisions++;
+        cout << "Total collisions: " << totalCollisions << endl;
     } else {
         objectTouchingBall = nullptr;
     }
@@ -85,7 +99,12 @@ void PlayState::update() {
                 collisionIsSharp = false;
                 break;
             case LEFT:
+                ball->placeBefore(objectTouchingBall);
+                collisionIsSharp = false;
+                handleBallCollision(objectTouchingBall);
+                break;
             case RIGHT:
+                ball->placeAfter(objectTouchingBall);
                 collisionIsSharp = false;
                 handleBallCollision(objectTouchingBall);
                 break;
@@ -100,6 +119,9 @@ void PlayState::render() {
     SDL_RenderClear(_Game::Instance()->getRenderer());
 
     drawField();
+    for(int i = 0; i < ITEM_COUNT; i++) {
+        items[i]->draw();
+    }
     player->draw();
     enemy->draw();
     ball->draw();
@@ -134,9 +156,8 @@ void PlayState::drawField() {
     SDL_RenderFillRect(_Game::Instance()->getRenderer(), &fieldMiddleLine);
 }
 
-void PlayState::setNewBall() {
-    if(ball) ball->clean();
-    ball = new Ball(_Game::Instance()->getGameWidth() / 2 - 10, _Game::Instance()->getGameHeight() / 2 - 10, 20, 20);
+void PlayState::resetBall() {
+    ball->reset(_Game::Instance()->getGameWidth() / 2 - 10, _Game::Instance()->getGameHeight() / 2 - 10);
 }
 
 void PlayState::updateResults() {

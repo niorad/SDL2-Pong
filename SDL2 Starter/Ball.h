@@ -17,6 +17,7 @@ private:
 
 public:
     Ball(int X, int Y, int W, int H);
+    virtual ~Ball() {};
     virtual void draw();
     virtual void update();
     virtual void clean();
@@ -26,6 +27,7 @@ public:
     void receiveImpulse(float x, float y);
     void setColor(int _r, int _g, int _b);
     void changeSpeed(float delta);
+    void reset(int x, int y);
 
     bool isOutOfFieldLeft;
     bool isOutOfFieldRight;

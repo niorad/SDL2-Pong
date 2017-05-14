@@ -10,6 +10,7 @@
 		43069B9F1EBA3275001A19A7 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43069B9D1EBA3275001A19A7 /* Game.cpp */; };
 		43338BB51EBD1C0800C7311F /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43338BB41EBD1C0800C7311F /* GameObject.cpp */; };
 		4335044E1EC0851500BDE55E /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4335044C1EC0851500BDE55E /* Ball.cpp */; };
+		43577E391EC8D6A200E18E9E /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43577E371EC8D6A200E18E9E /* Item.cpp */; };
 		437E57031EC25B4000E7AE19 /* Results.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 437E57011EC25B4000E7AE19 /* Results.cpp */; };
 		437F4AA71EBE72A4008929F2 /* PlayState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 437F4AA51EBE72A4008929F2 /* PlayState.cpp */; };
 		438DE2F81EBA726F00738DED /* InputHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 438DE2F61EBA726F00738DED /* InputHandler.cpp */; };
@@ -43,6 +44,8 @@
 		43338BB41EBD1C0800C7311F /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		4335044C1EC0851500BDE55E /* Ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ball.cpp; sourceTree = "<group>"; };
 		4335044D1EC0851500BDE55E /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
+		43577E371EC8D6A200E18E9E /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
+		43577E381EC8D6A200E18E9E /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		437E57011EC25B4000E7AE19 /* Results.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Results.cpp; sourceTree = "<group>"; };
 		437E57021EC25B4000E7AE19 /* Results.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Results.h; sourceTree = "<group>"; };
 		437F4AA51EBE72A4008929F2 /* PlayState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayState.cpp; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				43B025B51EBFBD92000A802A /* Paddle.h */,
 				4335044C1EC0851500BDE55E /* Ball.cpp */,
 				4335044D1EC0851500BDE55E /* Ball.h */,
+				43577E371EC8D6A200E18E9E /* Item.cpp */,
+				43577E381EC8D6A200E18E9E /* Item.h */,
 				437E57011EC25B4000E7AE19 /* Results.cpp */,
 				437E57021EC25B4000E7AE19 /* Results.h */,
 				437F4AA51EBE72A4008929F2 /* PlayState.cpp */,
@@ -195,6 +200,7 @@
 				43338BB51EBD1C0800C7311F /* GameObject.cpp in Sources */,
 				437F4AA71EBE72A4008929F2 /* PlayState.cpp in Sources */,
 				43C21FCF1EBA2B3A003744F9 /* main.cpp in Sources */,
+				43577E391EC8D6A200E18E9E /* Item.cpp in Sources */,
 				438DE2F81EBA726F00738DED /* InputHandler.cpp in Sources */,
 				4335044E1EC0851500BDE55E /* Ball.cpp in Sources */,
 				43E242CA1EBBD25D0031AD9C /* GameStateMachine.cpp in Sources */,
