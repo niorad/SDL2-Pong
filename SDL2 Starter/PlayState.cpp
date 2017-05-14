@@ -24,15 +24,22 @@ bool PlayState::onEnter() {
     updateResults();
 
     //initing items
-    for(int i = 0; i < ITEM_COUNT; i++) {
-        items[i] = new Item(10 + (i * 50), 200, accelerate);
-    }
+    items[0] = new Item(10, 200, accelerate);
+    items[1] = new Item(50, 200, decelerate);
+    items[2] = new Item(100, 200, shrinkBall);
+    items[3] = new Item(150, 200, shrinkPaddle);
+    items[4] = new Item(200, 200, growBall);
 
-    //loading sound
+    //loading sounds
     blip = NULL;
     blip = Mix_LoadWAV("assets/blip.wav");
-    if(blip == NULL) {
-        cout << "There was a probläm loading blip.wav" << endl;
+    pickup = NULL;
+    pickup = Mix_LoadWAV("assets/item.wav");
+    point = NULL;
+    point = Mix_LoadWAV("assets/point.wav");
+
+    if(blip == NULL || pickup == NULL) {
+        cout << "There was a probläm loading a sound" << endl;
         return false;
     }
 
@@ -41,14 +48,19 @@ bool PlayState::onEnter() {
 
 
 void PlayState::update() {
+
+    //Your common gameObject updates
+
     player->update();
     enemy->update();
     enemy->setCenterY(ball->getCenterY());
     ball->update();
-
     for(int i = 0; i < ITEM_COUNT; i++) {
         items[i]->update();
     }
+
+
+    //Ball out of bounds collisions
 
     if(ball->isOutOfFieldLeft) {
         scoreEnemy++;
@@ -59,6 +71,20 @@ void PlayState::update() {
         updateResults();
         resetBall();
     }
+
+
+    //Item pickups
+    for(int i = 0; i < ITEM_COUNT; i++) {
+        if(items[i]->checkOverlap(ball) && items[i]->isActive()) {
+            cout << "Oh my god its overlapping!" << endl;
+            cout << "Picked up item: " << items[i]->getKind() << endl;
+            Mix_PlayChannel(-1, pickup, 0);
+            items[i]->setInactive();
+        }
+    }
+
+
+    //Paddle Collisions (Player and Enemy Paddle)
 
     collisionDirection ballTouchingPlayer = ball->checkCollisionDirection(player);
     collisionDirection ballTouchingEnemy = ball->checkCollisionDirection(enemy);
@@ -158,6 +184,7 @@ void PlayState::drawField() {
 
 void PlayState::resetBall() {
     ball->reset(_Game::Instance()->getGameWidth() / 2 - 10, _Game::Instance()->getGameHeight() / 2 - 10);
+    Mix_PlayChannel(-1, point, 0);
 }
 
 void PlayState::updateResults() {

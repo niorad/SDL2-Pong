@@ -40,8 +40,12 @@ private:
     SDL_Rect fieldMiddlePoint;
     int scorePlayer;
     int scoreEnemy;
-    Mix_Chunk* blip;
     int totalCollisions;
+
+    Mix_Chunk* blip;
+    Mix_Chunk* wall;
+    Mix_Chunk* pickup;
+    Mix_Chunk* point;
 
 };
 
