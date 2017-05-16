@@ -9,7 +9,7 @@
 #include <SDL2/SDL.h>
 
 enum kindOfItem {
-    accelerate, decelerate, growBall, shrinkBall, growPaddle, shrinkPaddle
+    item_accelerate, item_decelerate, item_growBall, item_shrinkBall, item_growPaddle, item_shrinkPaddle
 };
 
 class Item : public GameObject {
@@ -17,11 +17,15 @@ class Item : public GameObject {
 private:
     bool active;
     kindOfItem kind;
+    SDL_Color itemColor;
+    SDL_Point trigPoints[4];
+    void updateLines();
 
 public:
-    Item(int x, int y, kindOfItem kind);
+    Item(kindOfItem kind);
 
     void setInactive();
+    void setActive(float x, float y);
     bool isActive() { return active; }
     kindOfItem getKind() { return kind; }
 

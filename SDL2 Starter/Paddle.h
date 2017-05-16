@@ -28,6 +28,8 @@ public:
     void stopMovingUp();
     void stopMovingDown();
     void setCenterY(float y);
+    void grow(float amount);
+    void shrink(float amount);
 
 };
 #endif

@@ -5,9 +5,7 @@
 #include <sstream>
 #include <string>
 
-
 const string PlayState::playID = "PLAY";
-
 
 bool PlayState::onEnter() {
     cout << "Entering PlayState" << endl;
@@ -21,14 +19,18 @@ bool PlayState::onEnter() {
     scorePlayer = 0;
     scoreEnemy = 0;
     totalCollisions = 0;
+    lastTouchedPaddle = player;
     updateResults();
 
     //initing items
-    items[0] = new Item(10, 200, accelerate);
-    items[1] = new Item(50, 200, decelerate);
-    items[2] = new Item(100, 200, shrinkBall);
-    items[3] = new Item(150, 200, shrinkPaddle);
-    items[4] = new Item(200, 200, growBall);
+    items[0] = new Item(item_accelerate);
+    items[1] = new Item(item_decelerate);
+    items[2] = new Item(item_shrinkBall);
+    items[3] = new Item(item_shrinkPaddle);
+    items[4] = new Item(item_growBall);
+    items[5] = new Item(item_growPaddle);
+
+    items[0]->setActive(200, 200);
 
     //loading sounds
     blip = NULL;
@@ -75,11 +77,31 @@ void PlayState::update() {
 
     //Item pickups
     for(int i = 0; i < ITEM_COUNT; i++) {
+
         if(items[i]->checkOverlap(ball) && items[i]->isActive()) {
-            cout << "Oh my god its overlapping!" << endl;
             cout << "Picked up item: " << items[i]->getKind() << endl;
             Mix_PlayChannel(-1, pickup, 0);
             items[i]->setInactive();
+
+            //handle specific items
+            switch (items[i]->getKind()) {
+                case item_growBall:
+                    break;
+                case item_shrinkBall:
+                    break;
+                case item_accelerate:
+                    ball->changeSpeed(2);
+                    break;
+                case item_decelerate:
+                    ball->changeSpeed(0.5);
+                    break;
+                case item_growPaddle:
+                    lastTouchedPaddle->grow(20);
+                    break;
+                case item_shrinkPaddle:
+                    lastTouchedPaddle->shrink(20);
+                    break;
+            }
         }
     }
 
@@ -95,6 +117,7 @@ void PlayState::update() {
     if(ballTouchingPlayer != NONE) {
         Mix_PlayChannel(-1, blip, 0);
         objectTouchingBall = player;
+        lastTouchedPaddle = player;
         ballTouchingDirection = ballTouchingPlayer;
         ball->setColor(150, 150, 255);
         ball->changeSpeed(1.05);
@@ -103,6 +126,7 @@ void PlayState::update() {
     } else if(ballTouchingEnemy != NONE) {
         Mix_PlayChannel(-1, blip, 0);
         objectTouchingBall = enemy;
+        lastTouchedPaddle = enemy;
         ballTouchingDirection = ballTouchingEnemy;
         ball->setColor(255, 100, 100);
         totalCollisions++;
@@ -141,7 +165,7 @@ void PlayState::update() {
 
 void PlayState::render() {
 
-    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 133, 135, 128, 255);
+    SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), 200, 200, 200, 255);
     SDL_RenderClear(_Game::Instance()->getRenderer());
 
     drawField();

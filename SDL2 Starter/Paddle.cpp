@@ -74,6 +74,15 @@ void Paddle::setCenterY(float y) {
     pos.setY(y - (rect.h/2));
 }
 
+void Paddle::grow(float amount) {
+    rect.h = rect.h + 20;
+}
+
+void Paddle::shrink(float amount) {
+    rect.h = rect.h - 20;
+}
+
+
 void Paddle::draw() {
     SDL_SetRenderDrawColor(_Game::Instance()->getRenderer(), isBlue ? 0 : 155, 0, isBlue ? 155 : 0, 255);
     SDL_RenderFillRect(_Game::Instance()->getRenderer(), &rect);

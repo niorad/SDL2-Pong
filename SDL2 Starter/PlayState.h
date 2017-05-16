@@ -23,7 +23,6 @@ public:
     virtual string getStateID() const { return playID; }
 
 private:
-
     static const string playID;
     bool collisionIsSharp;
     void handleBallCollision(GameObject * paddle);
@@ -32,10 +31,11 @@ private:
     void resetBall();
     Paddle* player;
     Paddle* enemy;
+    Paddle* lastTouchedPaddle;
     Ball* ball;
     Results* results;
-    const int ITEM_COUNT = 5;
-    Item* items [5];
+    const int ITEM_COUNT = 6;
+    Item* items [6];
     SDL_Rect fieldMiddleLine;
     SDL_Rect fieldMiddlePoint;
     int scorePlayer;
